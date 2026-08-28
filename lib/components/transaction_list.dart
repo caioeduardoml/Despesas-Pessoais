@@ -10,20 +10,34 @@ class TransactionList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 300,
-      child: ListView.builder(
+      child: transactions.isEmpty ? Column(
+        children: [
+          const SizedBox(height: 20),
+          Text(
+            "Nenhuma transação encontrada",
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+          ),
+          const SizedBox(height: 20),
+          Image.asset(
+            "assets/images/waiting.png",
+            height: 200,
+          ),
+        ],
+      ): ListView.builder(
         itemCount: transactions.length,
         itemBuilder: (ctx, index){
           final tr = transactions[index];
           return Card(
+            margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 5),
             child: Row(
               children: [
                 Container(
                   margin: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                   decoration: BoxDecoration(
                     border: Border.all(
-                      color: const Color.fromARGB(255, 125, 4, 146),
+                      color: Theme.of(context).primaryColor,
                       width: 2,
                     ),
                   ),
@@ -33,7 +47,7 @@ class TransactionList extends StatelessWidget {
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
-                      color: Colors.purple,
+                      color: Theme.of(context).colorScheme.primary,
                     ),
                   ),
                 ),
@@ -43,8 +57,9 @@ class TransactionList extends StatelessWidget {
                     Text(
                       tr.title,
                       style: TextStyle(
+                        fontFamily: "OpenSans",
                         fontSize: 16,
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.bold
                       ),
                     ),
                     const SizedBox(height: 15),
